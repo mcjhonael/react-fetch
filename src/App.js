@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment, useState } from 'react'
+import Header from './components/Header'
+import Personas from './components/Personas'
+import PersonaDetalle from './components/PersonaDetalle'
 
-function App() {
+import "./style/style.css"
+
+const App = () => {
+
+  const [personaSeleccionada, setPersonaSeleccionada] = useState(null)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Fragment>
+      <Header/>
+      <main className='container-fluid'>
+        <div className='row mt-4'>
+          <Personas setPersonaSeleccionada={setPersonaSeleccionada} />
+          <PersonaDetalle personaSeleccionada={personaSeleccionada} />
+        </div>
+      </main>
+    </Fragment>
+  )
 }
 
-export default App;
+export default App
