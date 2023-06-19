@@ -7,12 +7,14 @@ const Personas = ({ setPersonaSeleccionada }) => {
 
   const [personas, setPersonas] = useState([]);
   const [page, setPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(0)
+
   useEffect(() => {
     // colocar aqui el codigo que no se ejecutara necesariamente toda vez que una variable de estado sea actualizada
     // arreglo de variables que cuando sean modificadas, provocan que la funcion naranja se ejecute nuevamente
     getPersonas(page).then((rpta) => {
       setPersonas(rpta.data);
-      // setPage(rpta.page)
+      setTotalPages(rpta.total_pages)
     });
 
     //cuando el arreglo de dependencias esta vacio el useEffect solo sez ejecutara 1 sola vez
@@ -25,16 +27,18 @@ const Personas = ({ setPersonaSeleccionada }) => {
     setPage(page-1)
   }
   const siguiente=()=>{
+
     setPage(page+1)
   }
   return (
     <div className="col-md-8">
       <div className="row justify-content-center mb-3 ">
         <div className="col-md-2">
-          <button className="btn btn-danger btn-block" onClick={anterior}>Anterior</button>
+          <button className="btn btn-danger btn-block" onClick={anterior} disabled={totalPages===page}
+          >Anterior</button>
         </div>
         <div className="col-md-2">
-          <button className="btn btn-danger btn-block" onClick={siguiente}>Siguiente</button>
+          <button className="btn btn-danger btn-block" onClick={siguiente} >Siguiente</button>
         </div>
       </div>  
         <div className="row">
